@@ -1,9 +1,20 @@
+/*
+ * @Author: yeyu98
+ * @Date: 2025-05-31 19:39:00
+ * @LastEditors: yeyu98
+ * @LastEditTime: 2025-05-31 20:11:18
+ * @Description: 
+ */
 import { defineConfig, UserConfig } from "vite";
 import { resolve } from "path";
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import { createHtmlPlugin } from "vite-plugin-html";
 import { codeInspectorPlugin } from "code-inspector-plugin";
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+
 
 export default defineConfig((): UserConfig => {
   return {
@@ -22,7 +33,7 @@ export default defineConfig((): UserConfig => {
       }
     },
     server: {
-      port: 8888,
+      port: 3000,
       open: true
     },
     plugins: [
@@ -36,6 +47,12 @@ export default defineConfig((): UserConfig => {
       }),
       codeInspectorPlugin({
         bundler: "vite"
+      }),
+      AutoImport({
+        resolvers: [ElementPlusResolver()],
+      }),
+      Components({
+        resolvers: [ElementPlusResolver()],
       })
     ],
     build: {
